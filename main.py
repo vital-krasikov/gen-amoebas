@@ -9,18 +9,18 @@ from random import randint
 import os
 import glob
 
-EXPONENTS = ((1,0),(2,0),(2,1),(3,1),(0,2),(3,2),(0,3),(1,3),(1,4),(2,4))
-PATH = "C:\\Users\\Win11\\PycharmProjects\\loadAmoebas\\downloads"
+EXPONENTS = ((1,0),(2,0),(2,1),(3,1),(0,2),(3,2),(0,3),(1,3),(1,4),(2,4)) # list of monomial exponents
+PATH = "C:\\Users\\Win11\\PycharmProjects\\loadAmoebas\\downloads" # path for downloading pictures of amoebas
+NUM_OF_AMOEBAS = 2602 # number of polynomial amoebas we want to generate
 
 
 def random_coefs(num):
-# генерирует набор случайных коэффициентов для многочлена
+# generates a list of random coefficients
     return [randint(-1000000, 1000000) / 1000. for _ in range(num)]
 
 
 def get_poly(coefs, exponents):
-# собирает многочлен двух переменных из коэффициентов и списка мультистепеней мономов
-# возвращает: строку, содержащую запись многочлена
+# creates a bivariate polynomial as a string from a list of its coefficients and a list of monomial exponents
     result = ""
     first = True
     for i in range(len(coefs)):
@@ -30,6 +30,7 @@ def get_poly(coefs, exponents):
 
 
 def timestamp():
+# service function for naming files, returns current date and time as a string
     return time.strftime("%d%m%y%H%M", time.gmtime())
 
 
@@ -56,7 +57,7 @@ try:
     if not os.path.exists(PATH + "\\" + dirname):
         os.mkdir(PATH + "\\" + dirname)
 
-    for tries in range(2602):
+    for tries in range(NUM_OF_AMOEBAS):
 
         coefs = random_coefs(len(EXPONENTS))
         coefs_list += str(coefs) + "\n"
@@ -66,6 +67,7 @@ try:
         poly_input.send_keys(Keys.ENTER)
 
         wait = WebDriverWait(driver, 1000)
+        # language of the software by the default is Russian
         wait.until(EC.text_to_be_present_in_element((By.ID, "status"), "Идет построение"))
         wait.until(EC.text_to_be_present_in_element((By.ID, "status"), "Построение завершено"))
 
@@ -76,6 +78,7 @@ try:
 except Exception as ex:
     print(ex)
 finally:
+    # this part saves downloaded amoebas even if the algorithm has failed to terminate (sometimes it happens)
     fname = PATH + "\\" + timestamp()
 
     f = open(fname, "w")

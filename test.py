@@ -1,3 +1,4 @@
+# package for drawing the amoeba of a polinomial with given coefficients and monomial exponent vectors
 from selenium import webdriver
 from selenium.webdriver.chrome.service import Service
 from selenium.webdriver.common.by import By
@@ -8,8 +9,6 @@ import time
 
 
 def get_poly(coefs, exponents):
-# собирает многочлен двух переменных из коэффициентов и списка мультистепеней мономов
-# возвращает: строку, содержащую запись многочлена
     result = ""
     first = True
     for i in range(len(coefs)):
