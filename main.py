@@ -11,7 +11,7 @@ import glob
 
 EXPONENTS = ((1,0),(2,0),(2,1),(3,1),(0,2),(3,2),(0,3),(1,3),(1,4),(2,4)) # list of monomial exponents
 PATH = "C:\\Users\\Win11\\PycharmProjects\\loadAmoebas\\downloads" # path for downloading pictures of amoebas
-NUM_OF_AMOEBAS = 2602 # number of polynomial amoebas we want to generate
+NUM_OF_AMOEBAS = 2458 # number of polynomial amoebas we want to generate
 
 
 def random_coefs(num):
@@ -78,7 +78,9 @@ try:
 except Exception as ex:
     print(ex)
 finally:
-    # this part saves downloaded amoebas even if the algorithm has failed to terminate (sometimes it happens)
+    # this part saves downloaded amoebas even if the algorithm has failed to terminate
+    # if this happens (or you close the browser window manually), just restart the program,
+    # the amoebas you've already downloaded won't disappear
     fname = PATH + "\\" + timestamp()
 
     f = open(fname, "w")
